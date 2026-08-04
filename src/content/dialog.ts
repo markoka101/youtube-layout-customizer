@@ -127,7 +127,7 @@
 			nextConfig.adaptiveBreakpoints = ns.parseBreakpoints(controls.breakpointsInput.value);
 			return null;
 		} catch (error) {
-			return `Invalid breakpoint JSON: ${(error as Error).message}`;
+			return `Invalid breakpoint JSON: \n${(error as Error).message}`;
 		}
 	}
 
