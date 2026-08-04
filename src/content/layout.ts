@@ -1,6 +1,9 @@
 (function () {
 	const ns = globalThis.YTLayoutCustomizer!;
 
+	// track state of event dispatch
+	let isDispatchingResize = false;
+
 	function getEffectiveConfig(config: LayoutConfig): LayoutConfig {
 		if (config.mode !== 'adaptive') return config;
 
@@ -156,7 +159,9 @@
       }
     `;
 
+		isDispatchingResize = true;
 		globalThis.dispatchEvent(new Event('resize'));
+		isDispatchingResize = false;
 	}
 
 	async function autoLoadConfigAndApply(): Promise<void> {
@@ -166,6 +171,9 @@
 		if (!globalThis.__ytLayoutCustomizerHasResizeHandler) {
 			globalThis.__ytLayoutCustomizerHasResizeHandler = true;
 			globalThis.addEventListener('resize', () => {
+				// return if already running
+				if (isDispatchingResize) return;
+
 				const current = ns.getCurrentConfig();
 				if (!current) return;
 				applyLayout(current);
