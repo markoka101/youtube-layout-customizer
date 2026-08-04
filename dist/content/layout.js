@@ -1,6 +1,8 @@
 "use strict";
 (function () {
     const ns = globalThis.YTLayoutCustomizer;
+    // track state of event dispatch
+    let isDispatchingResize = false;
     function getEffectiveConfig(config) {
         if (config.mode !== 'adaptive')
             return config;
@@ -16,7 +18,6 @@
     }
     function applyLayout(config) {
         const effective = getEffectiveConfig(config);
-        const isWatchPage = globalThis.location.pathname.includes('/watch');
         let styleTag = document.getElementById('yt-layout-customizer-styles');
         if (!styleTag) {
             styleTag = document.createElement('style');
@@ -147,8 +148,9 @@
         }
       }
     `;
-        // Still fine to trigger a resize so your adaptive config re-evaluates.
+        isDispatchingResize = true;
         globalThis.dispatchEvent(new Event('resize'));
+        isDispatchingResize = false;
     }
     async function autoLoadConfigAndApply() {
         const config = await ns.loadConfig();
@@ -156,6 +158,9 @@
         if (!globalThis.__ytLayoutCustomizerHasResizeHandler) {
             globalThis.__ytLayoutCustomizerHasResizeHandler = true;
             globalThis.addEventListener('resize', () => {
+                // return if already running
+                if (isDispatchingResize)
+                    return;
                 const current = ns.getCurrentConfig();
                 if (!current)
                     return;

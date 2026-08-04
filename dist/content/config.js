@@ -60,7 +60,7 @@
             maxWidth: bp.maxWidth === Infinity ? 'Infinity' : bp.maxWidth
         })), null, 2);
     }
-    // Parse and validate user-edited JSON breakpoints
+    // Parse and validate  JSON breakpoints
     function parseBreakpoints(text) {
         const parsed = JSON.parse(text);
         if (!Array.isArray(parsed) || parsed.length === 0) {
@@ -81,7 +81,7 @@
             }
             const videosPerRow = Number(bp.videosPerRow);
             const shortsPerRow = Number(bp.shortsPerRow);
-            const sidebarWidth = String(bp.sidebarWidth ?? '');
+            const sidebarWidth = String(bp.sidebarWidth);
             if (!Number.isFinite(maxWidth) && maxWidth !== Infinity) {
                 throw new Error('Each breakpoint needs a valid maxWidth.');
             }
@@ -93,6 +93,10 @@
             }
             if (!sidebarWidth.trim()) {
                 throw new Error('Each breakpoint needs a sidebarWidth.');
+            }
+            // Sanitize sidebarWidth string so some doofus doesn't paste something malicious
+            if (!/^\d+(\.\d+)?(px|rem|em|%|vw)$/.test(sidebarWidth)) {
+                throw new Error('Invalid format. Must only contain value with unit (px,rem,%,etc...): \nValid: "200px" \nInvalid: "200 px;"');
             }
             return {
                 maxWidth,

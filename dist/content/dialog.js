@@ -107,7 +107,7 @@
             return null;
         }
         catch (error) {
-            return `Invalid breakpoint JSON: ${error.message}`;
+            return `Invalid breakpoint JSON: \n${error.message}`;
         }
     }
     function applyWatchPageConfig(nextConfig, controls) {
