@@ -8,6 +8,7 @@ interface BreakpointConfig {
 }
 
 interface LayoutConfig {
+	enabled: boolean;
 	mode: 'manual' | 'adaptive';
 	videosPerRow: number;
 	shortsPerRow: number;
