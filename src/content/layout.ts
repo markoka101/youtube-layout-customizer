@@ -22,6 +22,11 @@
 	}
 
 	function applyLayout(config: LayoutConfig): void {
+		if (!config.enabled) {
+			const styleTag = document.getElementById('yt-layout-customizer-styles');
+			if (styleTag) styleTag.remove();
+			return;
+		}
 		const effective = getEffectiveConfig(config);
 
 		let styleTag = document.getElementById(
@@ -122,31 +127,10 @@
       ytd-watch-flexy #ytd-player,
       ytd-watch-flexy .html5-video-player,
       ytd-watch-flexy .html5-video-container {
-        aspect-ratio: 16 / 9 !important;
-        height: auto !important;
-        max-height: none !important;
-        overflow: hidden !important;
+       
       }
 
-      ytd-watch-flexy .html5-video-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        box-sizing: border-box !important;
-      }
 
-      ytd-watch-flexy .html5-main-video {
-        width: 100% !important;
-        height: 100% !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        object-fit: contain !important;
-        object-position: center center !important;
-        display: block !important;
-        margin: 0 !important;
-      }
 
       @media (max-width: 1000px) {
         #columns.ytd-watch-flexy,
