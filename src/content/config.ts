@@ -10,6 +10,7 @@ interface BreakpointConfig {
 }
 
 interface LayoutConfig {
+	enabled: boolean;
 	mode: 'manual' | 'adaptive';
 	videosPerRow: number;
 	shortsPerRow: number;
@@ -47,6 +48,7 @@ interface YTLayoutCustomizerNamespace {
 (function () {
 	// Default configuration used when no stored settings exist
 	const DEFAULT_CONFIG: LayoutConfig = {
+		enabled: true,
 		mode: 'manual',
 		videosPerRow: 5,
 		shortsPerRow: 6,
@@ -78,6 +80,7 @@ interface YTLayoutCustomizerNamespace {
 		});
 	}
 
+	// Save the config to the local storage
 	function saveConfig(config: LayoutConfig): Promise<void> {
 		currentConfig = config;
 		return new Promise((resolve) => {
@@ -89,6 +92,7 @@ interface YTLayoutCustomizerNamespace {
 		return currentConfig;
 	}
 
+	// Resets to the extension's default configuration
 	function resetSettings(): void {
 		chrome.storage.local.remove('layoutConfig', () => {
 			const styleTag = document.getElementById('yt-layout-customizer-styles');
@@ -118,7 +122,7 @@ interface YTLayoutCustomizerNamespace {
 		);
 	}
 
-	// Parse and validate  JSON breakpoints
+	// Parse and validate JSON breakpoints
 	function parseBreakpoints(text: string): BreakpointConfig[] {
 		const parsed = JSON.parse(text) as Array<{
 			maxWidth?: unknown;
@@ -166,7 +170,7 @@ interface YTLayoutCustomizerNamespace {
 					throw new Error('Each breakpoint needs a sidebarWidth.');
 				}
 
-				// Sanitize sidebarWidth string so some doofus doesn't paste something malicious
+				// Sanitize sidebarWidth string
 				if (!/^\d+(\.\d+)?(px|rem|em|%|vw)$/.test(sidebarWidth)) {
 					throw new Error(
 						'Invalid format. Must only contain value with unit (px,rem,%,etc...): \nValid: "200px" \nInvalid: "200 px;"'
