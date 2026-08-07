@@ -3,6 +3,7 @@
 (function () {
     // Default configuration used when no stored settings exist
     const DEFAULT_CONFIG = {
+        enabled: true,
         mode: 'manual',
         videosPerRow: 5,
         shortsPerRow: 6,
@@ -28,6 +29,7 @@
             });
         });
     }
+    // Save the config to the local storage
     function saveConfig(config) {
         currentConfig = config;
         return new Promise((resolve) => {
@@ -37,6 +39,7 @@
     function getCurrentConfig() {
         return currentConfig;
     }
+    // Resets to the extension's default configuration
     function resetSettings() {
         chrome.storage.local.remove('layoutConfig', () => {
             const styleTag = document.getElementById('yt-layout-customizer-styles');
@@ -60,7 +63,7 @@
             maxWidth: bp.maxWidth === Infinity ? 'Infinity' : bp.maxWidth
         })), null, 2);
     }
-    // Parse and validate  JSON breakpoints
+    // Parse and validate JSON breakpoints
     function parseBreakpoints(text) {
         const parsed = JSON.parse(text);
         if (!Array.isArray(parsed) || parsed.length === 0) {
@@ -94,7 +97,7 @@
             if (!sidebarWidth.trim()) {
                 throw new Error('Each breakpoint needs a sidebarWidth.');
             }
-            // Sanitize sidebarWidth string so some doofus doesn't paste something malicious
+            // Sanitize sidebarWidth string
             if (!/^\d+(\.\d+)?(px|rem|em|%|vw)$/.test(sidebarWidth)) {
                 throw new Error('Invalid format. Must only contain value with unit (px,rem,%,etc...): \nValid: "200px" \nInvalid: "200 px;"');
             }

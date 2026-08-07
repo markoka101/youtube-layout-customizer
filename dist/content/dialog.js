@@ -14,6 +14,13 @@
         </h3>
 
         <div class="ytc-field">
+            <label class="ytc-inline-label">
+                <input type="checkbox" id="input-enabled" ${config.enabled === true ? 'checked' : ''} />
+                <span> Enable layout customization </span>
+            </label>
+        </div>
+
+        <div class="ytc-field">
           <label class="ytc-inline-label">
             <input type="checkbox" id="input-adaptive" ${config.mode === 'adaptive' ? 'checked' : ''} />
             <span>Adaptive layout (Automatically adjusts based on window size)</span>
@@ -89,6 +96,7 @@
     }
     function getDialogControls(dialog) {
         return {
+            enabledCheckbox: dialog.querySelector('#input-enabled'),
             adaptiveCheckbox: dialog.querySelector('#input-adaptive'),
             breakpointsInput: dialog.querySelector('#input-breakpoints'),
             sidebarInput: dialog.querySelector('#input-sidebar'),
@@ -132,6 +140,9 @@
     }
     function buildNextConfig(baseConfig, controls, isWatchPage) {
         const nextConfig = { ...baseConfig };
+        if (controls.enabledCheckbox) {
+            nextConfig.enabled = controls.enabledCheckbox.checked;
+        }
         const breakpointError = applyModeAndBreakpoints(nextConfig, controls);
         if (breakpointError) {
             alert(breakpointError);
