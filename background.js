@@ -28,6 +28,7 @@ async function openSettingsModal(tabId) {
 	}
 }
 
+//  Open the modal when user clicks on icon while on youtube
 chrome.action.onClicked.addListener((tab) => {
 	if (!tab.id || !tab.url?.includes('youtube.com')) return;
 	openSettingsModal(tab.id);
