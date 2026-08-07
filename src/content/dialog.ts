@@ -2,6 +2,7 @@
 	const ns = globalThis.YTLayoutCustomizer;
 
 	type DialogControls = {
+		enabledCheckbox: HTMLInputElement | null;
 		adaptiveCheckbox: HTMLInputElement | null;
 		breakpointsInput: HTMLTextAreaElement | null;
 		sidebarInput: HTMLInputElement | null;
@@ -21,6 +22,13 @@
           <span class="ytc-heading-icon">📺</span>
           <span>YT Layout Controls</span>
         </h3>
+
+        <div class="ytc-field">
+            <label class="ytc-inline-label">
+                <input type="checkbox" id="input-enabled" ${config.enabled === true ? 'checked' : ''} />
+                <span> Enable layout customization </span>
+            </label>
+        </div>
 
         <div class="ytc-field">
           <label class="ytc-inline-label">
@@ -104,6 +112,7 @@
 
 	function getDialogControls(dialog: HTMLElement): DialogControls {
 		return {
+			enabledCheckbox: dialog.querySelector<HTMLInputElement>('#input-enabled'),
 			adaptiveCheckbox: dialog.querySelector<HTMLInputElement>('#input-adaptive'),
 			breakpointsInput: dialog.querySelector<HTMLTextAreaElement>('#input-breakpoints'),
 			sidebarInput: dialog.querySelector<HTMLInputElement>('#input-sidebar'),
@@ -162,6 +171,9 @@
 	): LayoutConfig | null {
 		const nextConfig: LayoutConfig = { ...baseConfig };
 
+		if (controls.enabledCheckbox) {
+			nextConfig.enabled = controls.enabledCheckbox.checked;
+		}
 		const breakpointError = applyModeAndBreakpoints(nextConfig, controls);
 		if (breakpointError) {
 			alert(breakpointError);
