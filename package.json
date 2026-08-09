@@ -15,7 +15,7 @@
 	},
 	"keywords": [],
 	"author": "Mark Oka",
-	"license": "ISC",
+	"license": "MIT",
 	"type": "commonjs",
 	"bugs": {
 		"url": "https://github.com/markoka101/youtube-resizer/issues"
