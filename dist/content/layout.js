@@ -3,6 +3,7 @@
     const ns = globalThis.YTLayoutCustomizer;
     // track state of event dispatch
     let isDispatchingResize = false;
+    // Apply layout based on user's config
     function getEffectiveConfig(config) {
         if (config.mode !== 'adaptive')
             return config;
@@ -16,6 +17,7 @@
             sidebarWidth: bp.sidebarWidth
         };
     }
+    // Inject the custom layout the user has decided on
     function applyLayout(config) {
         if (!config.enabled) {
             const styleTag = document.getElementById('yt-layout-customizer-styles');
@@ -30,16 +32,15 @@
             styleTag.id = 'yt-layout-customizer-styles';
             document.head.appendChild(styleTag);
         }
-        styleTag.textContent = `
-   
-      ytd-rich-grid-renderer {
+        styleTag.textContent = /* css */ `   
+        ytd-rich-grid-renderer {
         --ytd-rich-grid-items-per-row: ${effective.videosPerRow} !important;
       }
 
     
       ytd-rich-shelf-renderer[is-shorts],
       ytd-rich-shelf-renderer[is-shorts] ytd-rich-grid-row,
-      ytd-rich-shelf-renderer[is-shorts] #contents,
+        ytd-rich-shelf-renderer[is-shorts] #contents,
       ytd-rich-shelf-renderer[is-shorts] #items {
         --ytd-rich-shelf-items-per-row: ${effective.shortsPerRow} !important;
         --ytd-rich-grid-items-per-row: ${effective.shortsPerRow} !important;
@@ -114,14 +115,6 @@
         box-sizing: border-box !important;
       }
 
-      ytd-watch-flexy #player-container,
-      ytd-watch-flexy #ytd-player,
-      ytd-watch-flexy .html5-video-player,
-      ytd-watch-flexy .html5-video-container {
-       
-      }
-
-
 
       @media (max-width: 1000px) {
         #columns.ytd-watch-flexy,
@@ -133,6 +126,7 @@
         }
       }
     `;
+        // signal that resize is already running to prevent calling function during
         isDispatchingResize = true;
         globalThis.dispatchEvent(new Event('resize'));
         isDispatchingResize = false;
