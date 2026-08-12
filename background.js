@@ -12,6 +12,7 @@ async function openSettingsModal(tabId) {
 				files: [
 					'dist/content/config.js',
 					'dist/content/layout.js',
+					'dist/content/dialog-templates.js',
 					'dist/content/dialog.js',
 					'dist/content/index.js'
 				]
