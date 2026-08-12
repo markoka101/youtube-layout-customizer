@@ -32,8 +32,7 @@ function getBaseFormHtml(config) {
 		<div class="ytc-field">
 			<label class="ytc-label">Adaptive Breakpoints (JSON):</label>
 			<textarea id="input-breakpoints" rows="8" class="ytc-textarea">
-                    ${ns.escapeHtml(ns.serializeBreakpoints(config.adaptiveBreakpoints))}
-                </textarea
+${ns.escapeHtml(ns.serializeBreakpoints(config.adaptiveBreakpoints))}</textarea
 			>
 		</div>
 	`;
