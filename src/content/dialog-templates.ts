@@ -85,8 +85,52 @@ function getFooterHtml(): string {
 		<div class="ytc-footer">
 			<button id="btn-reset" class="ytc-btn ytc-btn-reset">Reset</button>
 			<div class="ytc-btn-group">
+				<button id="btn-help" class="ytc-btn">? Help</button>
 				<button id="btn-cancel" class="ytc-btn">Cancel</button>
 				<button id="btn-save" class="ytc-btn ytc-btn-primary">Apply Changes</button>
+			</div>
+		</div>
+	`;
+}
+
+function getHelpHtml(): string {
+	return /* HTML */ `
+		<h3 class="ytc-heading">
+			<span class="ytc-heading-icon">?</span>
+			<span>How to use Layout Customizer</span>
+		</h3>
+
+		<div class="ytc-help-content">
+			<h4>Layout Modes</h4>
+			<p><strong>Manual:</strong> Uses the same values no matter the window size</p>
+			<p>
+				<strong>Adaptive:</strong> Allows you to set breakpoints adjusting values depending
+				on size of window
+			</p>
+			<h4>Breakpoint format</h4>
+			<pre class="ytc-help-code">
+[
+  {
+    "maxWidth": 900,
+    "videosPerRow": 4,
+    "shortsPerRow": 5,
+    "sidebarWidth": "260px"
+  },
+  {
+    "maxWidth": "Infinity",
+    "videosPerRow": 6,
+    "shortsPerRow": 7,
+    "sidebarWidth": "320px"
+  }
+]   
+            </pre
+			>
+
+			<p>Use widths such as <code>280px</code>, <code>20rem</code>, or <code>25vw</code>.</p>
+			<div class="ytc-footer">
+				<button id="btn-back-to-settings" class="ytc-btn ytc-btn-primary">
+					Back to settings
+				</button>
 			</div>
 		</div>
 	`;
@@ -101,5 +145,6 @@ function buildDialogHtml(config: LayoutConfig, isWatchPage: boolean): string {
 }
 
 Object.assign(globalThis.YTLayoutCustomizer, {
-	buildDialogHtml
+	buildDialogHtml,
+	getHelpHtml
 });
