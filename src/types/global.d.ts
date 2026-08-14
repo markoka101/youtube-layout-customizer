@@ -35,6 +35,9 @@ interface YTLayoutCustomizerNamespace {
 	applyLayout(config: LayoutConfig): void;
 	autoLoadConfigAndApply(): Promise<void>;
 
+	buildDialogHtml(config: LayoutConfig, isWatchPage: boolean): string;
+	getHelpHtml(): string;
+
 	showOptionsDialog(): void;
 	closeDialog(dialog: HTMLElement): void;
 }
