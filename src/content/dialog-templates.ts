@@ -102,10 +102,10 @@ function getHelpHtml(): string {
 
 		<div class="ytc-help-content">
 			<h4>Layout Modes</h4>
-			<p><strong>Manual:</strong> Uses the same values no matter the window size</p>
+			<p><strong>Manual:</strong> Uses the same values no matter the width</p>
 			<p>
-				<strong>Adaptive:</strong> Allows you to set breakpoints adjusting values depending
-				on size of window
+				<strong>Adaptive:</strong> Allows you to set breakpoints that adjust the values
+				depending on th width
 			</p>
 			<h4>Breakpoint format</h4>
 			<pre class="ytc-help-code">
