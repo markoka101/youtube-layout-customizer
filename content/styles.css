@@ -5,17 +5,16 @@
 	transform: translate(-50%, -50%);
 	background-color: #1f1f1f;
 	color: #ffffff;
-	padding: 24px;
+	padding: 30px 25px 30px 25px;
 	border-radius: 12px;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 	z-index: 100000;
 	font-family: Roboto, Arial, sans-serif;
-	width: 360px;
+	width: 400px;
 	border: 1px solid #333333;
 }
 
 .ytc-heading {
-	margin-top: 0;
 	margin-bottom: 16px;
 	color: #ff0000;
 	font-size: 18px;
@@ -92,7 +91,62 @@
 	font-weight: bold;
 }
 
-/* Optional small emoji icon spacing */
 .ytc-heading-icon {
 	font-size: 18px;
+}
+
+/* Help View */
+.ytc-help-content {
+	max-height: min(60vh, 480px);
+	overflow-y: auto;
+	padding-right: 4px;
+	color: #e6e6e6;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.ytc-help-content h4 {
+	margin: 18px 0 6px;
+	color: #ffffff;
+	font-size: 14px;
+}
+
+.ytc-help-content h4:first-child {
+	margin-top: 0;
+}
+
+.ytc-help-content p {
+	margin: 0 0 10px;
+}
+
+.ytc-help-content strong {
+	color: #ffffff;
+}
+
+.ytc-help-content code {
+	padding: 1px 4px;
+	border-radius: 3px;
+	background: #0b5bdc23;
+	color: rgb(225, 225, 240);
+	font-family: monospace;
+	font-size: 12px;
+}
+
+.ytc-help-content .ytc-footer {
+	justify-content: flex-end;
+	margin-top: 18px;
+}
+
+.ytc-help-code {
+	margin: 8px 0 14px;
+	padding: 10px;
+	overflow-x: auto;
+	border: 1px solid #444444;
+	border-radius: 6px;
+	background-color: #151515;
+	color: #d7d7d7;
+	font-family: monospace;
+	font-size: 11px;
+	line-height: 1.45;
+	white-space: pre;
 }
