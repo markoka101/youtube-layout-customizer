@@ -91,6 +91,15 @@
     }
     function attachDialogHandlers(dialog, config, controls, isWatchPage) {
         const submit = createSubmitHandler(config, controls, isWatchPage, dialog);
+        dialog.querySelector('#btn-help')?.addEventListener('click', () => {
+            const draftConfig = snapshotConfig(config, controls, isWatchPage);
+            dialog.innerHTML = ns.getHelpHtml();
+            dialog.querySelector('#btn-back-to-settings')?.addEventListener('click', () => {
+                dialog.innerHTML = ns.buildDialogHtml(draftConfig, isWatchPage);
+                const nextControls = getDialogControls(dialog);
+                attachDialogHandlers(dialog, draftConfig, nextControls, isWatchPage);
+            });
+        });
         dialog
             .querySelectorAll('input, textarea')
             .forEach((input) => {
@@ -126,6 +135,10 @@
             const controls = getDialogControls(dialog);
             attachDialogHandlers(dialog, config, controls, isWatchPage);
         });
+    }
+    function snapshotConfig(config, controls, isWatchPage) {
+        const draft = buildNextConfig(config, controls, isWatchPage);
+        return draft ?? config;
     }
     Object.assign(ns, { showOptionsDialog, closeDialog });
 })();
