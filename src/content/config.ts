@@ -42,6 +42,8 @@ interface YTLayoutCustomizerNamespace {
 
 	// Dialog (filled in by dialog.ts)
 	showOptionsDialog(): void;
+	getHelpHtml(): string;
+	buildDialogHtml(config: LayoutConfig, isWatchPage: boolean): string;
 	closeDialog(dialog: HTMLElement): void;
 }
 
@@ -211,6 +213,7 @@ interface YTLayoutCustomizerNamespace {
 		escapeHtml,
 		serializeBreakpoints,
 		parseBreakpoints,
+
 		addInputEnterKeyHandler
 	};
 
