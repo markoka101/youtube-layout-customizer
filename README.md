@@ -29,7 +29,7 @@ All layout preferences are stored locally in Chrome’s extension storage; no da
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/markoka101/youtube-resizer.git
+   git clone https://github.com/markoka101/youtube-layout-customizer.git
    cd youtube-resizer
    ```
 
